@@ -11,6 +11,6 @@ eval "$($(dirname $0)/adr-config)"
 ## specify the command to be used to display the help text.  The default
 ## pager is: more.
 
-pager="${ADR_PAGER:-${PAGER:-more}}"
+pager="${ADR_PAGER:-${PAGER:-less}}"
 
 ("$adr_bin_dir/_adr_help" "$@") | $pager

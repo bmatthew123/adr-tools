@@ -100,7 +100,9 @@ else
 fi
 
 newid=$(printf "%04d" $newnum)
-slug=$(echo -n $title | tr -Ccs [:alnum:] - | tr [:upper:] [:lower:] | sed -e 's/[^[:alnum:]]*$//' -e 's/^[^[:alnum:]]*//')
+slug=$(tr -Ccs [:alnum:] - <<< $title)
+slug=$(tr [:upper:] [:lower:] <<< $slug)
+slug=$(sed -e 's/[^[:alnum:]]*$//' -e 's/^[^[:alnum:]]*//' <<< $slug)
 dstfile=$dstdir/$newid-$slug.md
 date=${ADR_DATE:-$(date +%Y-%m-%d)}
 
@@ -129,5 +131,5 @@ do
 	"$adr_bin_dir/_adr_add_link" "$target" "$reverse_link" "$dstfile"
 done
 
-${VISUAL:-${EDITOR:-true}} $dstfile
+${VISUAL:-${EDITOR:-vim}} $dstfile
 echo $dstfile
